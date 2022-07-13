@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day28_Github_Profiles</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Heebo:300&display=swap');
+
+        * {
+            box-sizing: border-box;
+            list-style: none;
+            text-decoration: none;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100vw;
+            height: 80vh;
+            margin: 0;
+            font-family: 微軟正黑體, 'Heebo', sans-serif;
+            background-color: #22272e;
+        }
+
+        .search {
+            width: 500px;
+            height: 50px;
+            margin: 30px;
+            border-radius: 8px;
+            background-color: #2d333b;
+            border: none;
+            padding-left: 15px;
+            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3);
+            outline: none;
+            color: #999;
+        }
+
+        .container {
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #2d333b;
+            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .user-photo {
+            width: 150px;
+            height: 150px;
+            margin: 35px;
+            border-radius: 50%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            border: 7px solid #22272e;
+        }
+
+
+        .user-info {
+            width: 500px;
+            margin: 20px;
+        }
+
+        .user-name {
+            margin: 10px;
+            color: white;
+        }
+
+        .user-intro {
+            margin: 5px 10px;
+            color: white;
+            font-size: 15px;
+            width: 100%;
+            line-height: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .user-data {
+            display: flex;
+            padding: 0;
+        }
+
+        .user-data li {
+            margin: 10px;
+            font-size: 13px;
+            color: #999;
+        }
+
+        .user-repos {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .user-repos a {
+            margin: 5px 10px;
+            color: #999;
+            font-size: 13px;
+            background-color: #22272e;
+            padding: 3px 5px;
+            border-radius: 3px;
+        }
+
+    </style>
+</head>
+<body>
+
+<form class="form">
+    <input type="text" class="search" placeholder="輸入你要查找的使用者">
+</form>
+
+<div class="main"></div>
+
+
+<script>
+    const form = document.querySelector('.form')
+    const search = document.querySelector('.search')
+    const main = document.querySelector('.main')
+    const APIURL = 'https://api.github.com/users/'
+
+    form.addEventListener('submit', (e) => {
+        main.innerHTML = ''
+        e.preventDefault()
+        getUserData(search.value)
+        setTimeout(() => getUserRepo(search.value), 100)
+    })
+
+
+    async function getUserData(keyword) {
+        const {data} = await axios(APIURL + keyword)
+        createUserCard(data)
+    }
+
+    async function getUserRepo(keyword) {
+        const {data} = await axios(APIURL + keyword + '/repos?sort=created')
+        createRepo(data)
+    }
+
+    function createUserCard(data) {
+        const {avatar_url, name, bio, followers, following, public_repos} = data
+        let div = document.createElement('div')
+        div.classList.add('container')
+        div.innerHTML = `
+             <div class="user-photo"
+             style="background-image: url('${avatar_url}')"></div>
+        <div class="user-info">
+            <h3 class="user-name">${name}</h3>
+            <p class="user-intro">${bio}</p>
+            <ul class="user-data">
+                <li>追隨: ${followers}</li>
+                <li>關注: ${following}</li>
+                <li>資料庫: ${public_repos}</li>
+            </ul>
+            <div class="user-repos"></div>
+        </div>`
+
+        main.appendChild(div)
+    }
+
+    function createRepo(data) {
+        const userRepo = document.querySelector('.user-repos')
+        data.slice(0, 6).forEach(item => {
+            let a = document.createElement('a')
+            a.href = item.html_url
+            a.innerHTML = item.name
+
+            userRepo.appendChild(a)
+        })
+    }
+
+
+</script>
+</body>
+</html>

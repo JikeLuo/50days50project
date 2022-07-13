@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day25_Sticky_Navbar</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Heebo:300&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Heebo', sans-serif;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            width: 99.1%;
+        }
+
+        nav {
+            display: flex;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 70px;
+            background-color: #222222;
+            z-index: 1;
+            transition: 0.1s ease-in;
+        }
+
+        nav.active {
+            height: 40px;
+            background-color: white;
+        }
+
+
+        .logoContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo {
+            width: 20%;
+            margin-left: 400px;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        nav.active .logo {
+            color: #222;
+        }
+
+        .link {
+            height: 100%;
+            margin: 0 400px 0 0;
+            display: flex;
+        }
+
+        .link li {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 100%;
+            margin: 0 20px;
+        }
+
+        nav.active .link li a:not(#home) {
+            color: #222;
+        }
+        .link li a {
+            color: white;
+        }
+
+        .mainImg {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: url('https://picsum.photos/1800/1000?grayscale') no-repeat center / cover;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            color: white;
+        }
+
+        .container p {
+            font-size: large;
+        }
+
+
+        section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 70%;
+            margin-top: 150px;
+        }
+
+        section h2 {
+            letter-spacing: 2.5px;
+        }
+
+        section p {
+            letter-spacing: 1.5px;
+            line-height: 200%;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logoContainer">
+        <div class="logo">My Website</div>
+    </div>
+    <ul class="link">
+        <li><a href="#" id="home" style="color: #bb392b">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Service</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+</nav>
+
+<div class="mainImg">
+    <div class="container">
+        <h1>歡迎來到我的網站</h1>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores, consequuntur?</p>
+    </div>
+</div>
+
+
+<section>
+    <h2>Content One</h2>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione dolorem voluptates eveniet tempora ut
+        cupiditate magnam, sapiente, hic quo in ipsum iste soluta eaque perferendis nihil recusandae dolore officia
+        aperiam corporis similique. Facilis quos tempore labore totam! Consectetur molestiae iusto ducimus error
+        reiciendis aspernatur dolor, modi dolorem sit architecto, voluptate magni sunt unde est quas? Voluptates a
+        dolorum voluptatum quo perferendis aut sit. Aspernatur libero laboriosam ab eligendi omnis delectus earum
+        labore, placeat officiis sint illum rem voluptas ipsum repellendus iste eius recusandae quae excepturi facere,
+        iure rerum sequi? Illum velit delectus dicta et iste dolorum obcaecati minus odio eligendi!</p>
+    <h2>Content Two</h2>
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur provident nostrum possimus inventore nisi
+        laboriosam consequatur modi nulla eos, commodi, omnis distinctio! Maxime distinctio impedit provident,
+        voluptates illo odio nostrum minima beatae similique a sint sapiente voluptatum atque optio illum est! Tenetur
+        tempora doloremque quae iste aperiam hic cumque repellat?</p>
+</section>
+
+
+<script>
+    const nav = document.querySelector('nav')
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > (nav.offsetHeight * 2)) {
+            nav.classList.add('active')
+        } else {
+            nav.classList.remove('active')
+        }
+    })
+
+</script>
+</body>
+</html>

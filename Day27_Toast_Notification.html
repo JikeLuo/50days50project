@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Day27_Toast_Notification</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Heebo:300&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: 微軟正黑體, 'Heebo', sans-serif;
+            user-select: none;
+        }
+
+        body {
+            position: relative;
+            margin: 0;
+            background-color: #2a9d8f;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        .btn {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateY(-50%) translateX(-50%);
+            width: 150px;
+            height: 50px;
+            background-color: white;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            color: #2a9d8f;
+            font-weight: bold;
+        }
+
+        .btn:active {
+            transform: translateY(-50%) translateX(-50%) scale(0.95);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100vh;
+        }
+
+        .toast {
+            width: 150px;
+            height: 40px;
+            background-color: white;
+            margin: 10px;
+            border-radius: 10px;
+            line-height: 40px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .error {
+            color: #ef233c;
+        }
+
+        .info {
+            color: #fca311;
+        }
+
+        .success {
+            color: #2a9d8f;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<button class="btn">顯示通知</button>
+<div class="container"></div>
+
+
+<script>
+    const btn = document.querySelector('.btn')
+    const container = document.querySelector('.container')
+
+    btn.addEventListener('click', () => {
+        createDiv()
+
+    })
+
+    function createDiv() {
+        let div = document.createElement('div')
+        const num = getRandom()
+        if (num === 0) {
+            div.className = 'toast success'
+            div.innerHTML = '狀態: 成功'
+        } else if (num === 1) {
+            div.className = 'toast error'
+            div.innerHTML = '狀態: 失敗'
+
+        } else if (num === 2) {
+            div.className = 'toast info'
+            div.innerHTML = '狀態: 錯誤'
+        }
+        container.appendChild(div)
+        setTimeout(() => {
+            div.remove()
+        }, 3000)
+    }
+
+    function getRandom() {
+        return Math.floor(Math.random() * 3)
+    }
+</script>
+</body>
+</html>

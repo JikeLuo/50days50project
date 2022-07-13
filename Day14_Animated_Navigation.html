@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day14_Animated_Navigation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        * {
+            font-family: 'Roboto', sans-serif, 微軟正黑體;
+            text-decoration: none;
+            transition: 0.7s linear;
+        }
+        body {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            background-color: #f1faee;
+            height: 100vh;
+            width: 100vw;
+        }
+        body::after {
+            content: '';
+            display: block;
+            height: 50%;
+            width: 100%;
+            background-color: white;
+        }
+
+
+        .container {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 450px;
+            height: 30px;
+            transform: translateX(-50%) translateY(-50%);
+            background-color: white;
+            box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
+            padding: 20px;
+        }
+
+        .hyperlink {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translateY(-50%) translateX(-55%);
+            z-index: 1;
+        }
+
+        .hyperlink a {
+            margin: 0 20px;
+            display: inline-block;
+            line-height: 30px;
+            color: #a8dadc;
+        }
+
+
+        .btn {
+            float: right;
+            position: relative;
+            width: 30px;
+            height: 30px;
+            outline: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+        }
+        .btn div {
+            position: absolute;
+            left: 0;
+            height: 2px;
+            width: 17px;
+            margin: 5px;
+            background-color: #a8dadc;
+        }
+
+        .top {
+            top: 5px;
+        }
+
+        .bottom {
+            top: 15px;
+            background-color: #a8dadc;
+
+        }
+
+        .clockwise{
+            transform:  translateY(5px) rotate(-765deg) ;
+        }
+
+        .counterclockwise {
+            transform:  translateY(-5px) rotate(765deg) ;
+        }
+
+        .aRotate {
+            transform: rotateY(720deg);
+            opacity: 0;
+        }
+
+        .hyperMove {
+            left: 75%;
+        }
+
+        .containerScale {
+            width: 30px;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="hyperlink">
+    <a href="">Home</a>
+    <a href="">Works</a>
+    <a href="">About</a>
+    <a href="">Contact</a>
+</div>
+<div class="container">
+    <div class="btn">
+        <div class="top"></div>
+        <div class="bottom"></div>
+    </div>
+</div>
+
+
+<script>
+    const btn = document.querySelectorAll('.btn div')
+    const a = document.querySelectorAll('.hyperlink a')
+    const hyperContainer = document.querySelector('.hyperlink')
+    const container = document.querySelector('.container')
+    container.children[0].addEventListener('click', ()=>{
+        btn[0].classList.toggle('clockwise')
+        btn[1].classList.toggle('counterclockwise')
+        a.forEach(item =>{
+            item.classList.toggle('aRotate')
+        })
+        hyperContainer.classList.toggle('hyperMove')
+        container.classList.toggle('containerScale')
+    })
+</script>
+</body>
+</html>

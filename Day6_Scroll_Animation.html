@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day6_Scroll_Animation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap');
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #E1EBE8;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container span {
+            display: block;
+            margin: 10px;
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .container div {
+            flex: 2;
+            width: 350px;
+            line-height: 210px;
+            border-radius: 20px;
+            margin: 10px;
+            color: white;
+            background-color: #FED9BF;
+            text-align: center;
+            font-size: 40px;
+            transition: 0.5s ease-in;
+            box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
+
+        }
+
+        .container div:nth-of-type(even) {
+            background-color: #CFE6DA;
+            box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .container .toSide:nth-child(2n) {
+            transform: translateX(400%);
+        }
+
+        .container .toSide:nth-child(2n - 1) {
+            transform: translateX(-400%);
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <span class="title">Scroll to see the animation</span>
+    <div class="toSide">Content</div>
+    <div class="toSide">Content</div>
+    <div class="toSide">Content</div>
+    <div class="toSide">Content</div>
+    <div class="toSide">Content</div>
+    <div class="toSide">Content</div>
+    <div class="toSide">Content</div>
+    <div class="toSide">Content</div>
+    <div class="toSide">Content</div>
+    <div class="toSide">Content</div>
+    <div class="toSide">Content</div>
+    <div class="toSide">Content</div>
+    <div class="toSide">Content</div>
+    <div class="toSide">Content</div>
+    <div class="toSide">Content</div>
+</div>
+
+<script>
+    const content = document.querySelectorAll('.container div')
+
+    // window.innerHeight webpage高度
+    // document.documentElement.scrollHeight 總網頁高度
+    // content[0].getBoundingClientRect().top 目前視窗畫面Top和目標Top的距離
+    // item.getBoundingClientRect().bottom - window.innerHeight
+
+    showTheContent()
+    window.addEventListener('scroll', showTheContent)
+
+
+    function showTheContent() {
+        content.forEach(item => {
+            if (item.getBoundingClientRect().bottom - window.innerHeight < 0) {
+                item.classList.remove('toSide')
+            } else {
+                item.classList.add('toSide')
+            }
+        })
+    }
+
+</script>
+</body>
+</html>

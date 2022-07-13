@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day3_Rotating_Navigation_Animation</title>
+    <style>
+        body {
+            font-family: Lato;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #333333;
+        }
+
+        p {
+            font-size: 15px;
+            margin: 25px 0 25px 0;
+        }
+
+
+        .text-container {
+            display: flex;
+            justify-content: center;
+            transform-origin: left top;
+            width: 100%;
+            height: 100vh;
+            background-color: #fafafa;
+            transition: 0.5s ease-in;
+            padding: 0;
+            margin: 0;
+        }
+
+        .text-container.active {
+            transform: rotate(-15deg);
+        }
+
+        .text-inner-container {
+            width: 800px;
+            margin-top: 50px;
+        }
+
+
+        .text-container h1 {
+            margin-bottom: 4px;
+        }
+
+
+        small {
+            color: #555;
+        }
+
+        .btn-container {
+            position: absolute;
+            left: -75px;
+            top: -75px;
+            transition: 0.5s ease-in;
+            z-index: 1;
+        }
+
+
+        .btn-container.active {
+            transform: rotate(-90deg);
+        }
+
+
+        .circle {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: skyblue;
+        }
+
+
+        .open-btn {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            right: 30%;
+            top: 70%;
+            height: 40%;
+            width: 20%;
+            transform: translateX(50%) translateY(-50%);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .openNav {
+            width: 35px;
+            height: 5px;
+            border-radius: 2px;
+            background-color: white;
+            margin: 2.5px 0 2.5px 0;
+        }
+
+
+        .close-btn {
+            position: absolute;
+            left: 30%;
+            top: 70%;
+            transform: translateX(-50%) translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 20%;
+            width: 20%;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .closeNav {
+            width: 35px;
+            height: 5px;
+            border-radius: 2px;
+            background-color: white;
+        }
+
+        .closeNav.one {
+            transform: rotate(45deg) translateY(2.5px);
+        }
+
+        .closeNav.two {
+            transform: rotate(-45deg) translateY(-2.5px);
+        }
+
+
+        nav {
+        }
+
+        ul {
+            position: fixed;
+            left: 0;
+            bottom: 0%;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        ul li {
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            margin: 30px 0 30px 0;
+            transition: 0.5s ease-in;
+        }
+
+        ul li:nth-child(1) {
+            left: -180px;
+            bottom: 100px;
+        }
+
+        ul li:nth-child(2) {
+            left: -160px;
+            bottom: 50px;
+        }
+
+        ul li:nth-child(3) {
+            left: -140px;
+            bottom: 0px;
+        }
+
+        ul li.active {
+            transform: translateX(200px);
+        }
+
+
+        ul li a {
+            height: 20px;
+            text-underline: none;
+            line-height: 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        ul li a::before {
+            float: left;
+            content: '';
+            border-radius: 5px;
+            width: 20px;
+            height: 20px;
+            margin-right: 20px;
+            background-color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="main">
+    <div class="btn-container">
+        <div class="circle">
+            <button class="open-btn">
+                <i class="openNav"></i>
+                <i class="openNav"></i>
+                <i class="openNav"></i>
+            </button>
+            <button class="close-btn">
+                <i class="closeNav one"></i>
+                <i class="closeNav two"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="text-container">
+        <div class="text-inner-container">
+            <h1>About the Rhythm Game, How They so Funny!!</h1>
+            <small>Zeke</small>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quia in ratione dolores cupiditate,
+                maxime aliquid impedit dolorem nam dolor omnis atque fuga labore modi veritatis porro laborum minus,
+                illo,
+                maiores recusandae cumque ipsa quos. Tenetur, consequuntur mollitia labore pariatur sunt quia harum aut.
+                Eum
+                maxime dolorem provident natus veritatis molestiae cumque quod voluptates ab non, tempore cupiditate?
+                Voluptatem, molestias culpa. Corrupti, laudantium iure aliquam rerum sint nam quas dolor dignissimos in
+                error placeat quae temporibus minus optio eum soluta cupiditate! Cupiditate saepe voluptates laudantium.
+                Ducimus consequuntur perferendis consequatur nobis exercitationem molestias fugiat commodi omnis.
+                Asperiores
+                quia tenetur nemo ipsa.</p>
+            <h2>Random Pic</h2>
+            <img src="https://picsum.photos/800/500" alt="">
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit libero deleniti rerum quo, incidunt vel
+                consequatur culpa ullam. Magnam facere earum unde harum. Ea culpa veritatis magnam at aliquid.
+                Perferendis totam placeat molestias illo laudantium? Minus id minima doloribus dolorum fugit deserunt
+                qui vero voluptas, ut quia cum amet temporibus veniam ad ea ab perspiciatis, enim accusamus asperiores
+                explicabo provident. Voluptates sint, neque fuga cum illum, tempore autem maxime similique laborum odio,
+                magnam esse. Aperiam?</p>
+        </div>
+    </div>
+</div>
+
+<nav>
+    <ul>
+        <li>
+            <a href="#"> HOME</a>
+        </li>
+        <li>
+            <a href="#"> ABOUT</a>
+        </li>
+        <li>
+            <a href="#"> CONTACT</a>
+        </li>
+    </ul>
+</nav>
+
+<script>
+    const open = document.querySelector('.open-btn')
+    const close = document.querySelector('.close-btn')
+    const textContainer = document.querySelector('.text-container')
+    const btnContainer = document.querySelector('.btn-container')
+    const li = document.querySelectorAll('li')
+    let count = 0
+
+    open.addEventListener('click', () => {
+        btnContainer.classList.add('active')
+        textContainer.classList.add('active')
+        classLi()
+
+    })
+
+    close.addEventListener('click', () => {
+        btnContainer.classList.remove('active')
+        textContainer.classList.remove('active')
+        classLi()
+    })
+
+
+    flag = false
+
+    function classLi() {
+        let addLi = setInterval(() => {
+            if (!flag) {
+                li[count].classList.add('active')
+                count++
+                if (count === 3) {
+                    clearInterval(addLi)
+                    flag = !flag
+                }
+            } else {
+                count--
+                li[count].classList.remove('active')
+                if (count === 0) {
+                    flag = !flag
+                    clearInterval(addLi)
+                }
+            }
+        }, 70)
+    }
+</script>
+</body>
+</html>

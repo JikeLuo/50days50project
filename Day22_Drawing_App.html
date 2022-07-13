@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day22_Drawing_App</title>
+    <script src="https://kit.fontawesome.com/2093c6fb51.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            border-collapse: collapse;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            height: 670px;
+            width: 700px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 3px 0px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        i {
+            color: black;
+        }
+
+        canvas {
+            background-color: white;
+        }
+
+        .actionBar {
+            width: 700px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            border-top: 1px solid #999;
+            padding: 0 12px 0 12px;
+        }
+
+        button {
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border: none;
+            margin: 10px;
+            font-size: 20px;
+            border-radius: 15%;
+            cursor: pointer;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: scale(0.9);
+        }
+
+        .size {
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 15%;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .color {
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 15%;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .space {
+            flex: 1;
+        }
+
+
+        .clear {
+            align-content: flex-end;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <canvas id="myCanvas" width='700' height='600'></canvas>
+    <div class="actionBar">
+        <button class="decrease"><i class="fa-solid fa-minus"></i></button>
+        <div class="size">5</div>
+        <button class="increase"><i class="fa-solid fa-plus"></i></button>
+        <input type="color" class="color">
+
+        <div class="space"></div>
+        <button class="save">
+            <a download="Image.png" href="" onclick="download_img(this);">
+                <i class="fa-solid fa-floppy-disk"></i>
+            </a>
+        </button>
+        </button>
+        <button class="clear"><i class="fa-solid fa-trash-can"></i></button>
+    </div>
+</div>
+
+
+<script>
+    const canvas = document.querySelector('#myCanvas')
+    const decrease = document.querySelector('.decrease')
+    const increase = document.querySelector('.increase')
+    const sizeEl = document.querySelector('.size')
+    const colorEl = document.querySelector('.color')
+    const clear = document.querySelector('.clear')
+
+    let color = colorEl
+    let size = 5
+    let isDown = false
+    let x
+    let y
+
+    const ctx = canvas.getContext('2d')
+
+
+    canvas.addEventListener('mousedown', (e) => {
+        isDown = true
+        x = e.offsetX
+        y = e.offsetY
+    })
+
+    document.addEventListener('mouseup', () => {
+        isDown = false
+    })
+
+    canvas.addEventListener('mousemove', (e) => {
+        if (isDown) {
+            let x2 = e.offsetX
+            let y2 = e.offsetY
+            drawCircle(x, y)
+            drawLine(x, y, x2, y2)
+        }
+    })
+
+    /* 畫圓的函數 */
+    function drawCircle(x, y) {
+        ctx.beginPath()
+        ctx.arc(x, y, size, 0, Math.PI * 2)
+        ctx.fillStyle = color
+        ctx.fill()
+    }
+
+    function drawLine(x1, y1, x2, y2) {
+        ctx.beginPath()
+        ctx.moveTo(x1, y1)
+        ctx.lineTo(x2, y2)
+        ctx.strokeStyle = color
+        ctx.lineWidth = size * 2
+        ctx.stroke()
+        x = x2
+        y = y2
+    }
+
+
+    /* 變換顏色 */
+    colorEl.addEventListener('change', () => {
+        color = colorEl.value
+        console.log(color)
+    })
+
+    increase.addEventListener('click', () => {
+        size += 5
+        if (size >= 50) size = 50
+        sizeEl.innerHTML = size
+    })
+
+    decrease.addEventListener('click', () => {
+        size -= 5
+        if (size <= 5) size = 5
+        sizeEl.innerHTML = size
+    })
+
+    clear.addEventListener('click', () => ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight))
+
+    console.log(canvas.clientWidth)
+
+    download_img = function (el) {
+        // get image URI from canvas object
+        let imageURI = canvas.toDataURL("image/png");
+        console.log(imageURI)
+        el.href = imageURI;
+    };
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day13_Random_Choice_Picker</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif, 微軟正黑體;
+            list-style: none;
+            text-align: center;
+            color: #f1faee;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #a8dadc;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 300px;
+        }
+
+        textarea {
+            resize: none;
+            outline: none;
+            width: 300px;
+            height: 100px;
+            color: black;
+            text-align: start;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            display: flex;
+            justify-content: start;
+            flex-flow: row wrap;
+            color: #f1faee;
+        }
+
+        li {
+            background-color: #457b9d;
+            font-size: 15px;
+            margin: 5px;
+            padding: 5px 10px;
+            border-radius: 12px;
+        }
+
+        .selected {
+            background-color: #1d3557;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h4>輸入所選文字並用 <b>空格</b> 來分隔，如輸入完畢請按 F2</h4>
+    <textarea id="textarea" datatype="textarea"></textarea>
+    <ul datatype="ul">
+
+
+    </ul>
+</div>
+
+<script>
+    const textarea = document.querySelector('[datatype="textarea"]')
+    const ul = document.querySelector('[datatype="ul"]')
+    console.log(textarea)
+
+    textarea.addEventListener('keyup', (e) => {
+
+        const num = createTag(e.target.value)
+        console.log(ul.childNodes[0].classNane)
+
+        if (e.code === 'F2') {
+            selector(num)
+        }
+    })
+
+    function createTag(value) {
+        /* 用 空格 分解，再修剪前後空白，過濾空的數組 */
+        const tags = value.split(' ').map(item => item.trim()).filter(item => item !== '')
+        console.log(tags)
+        ul.innerHTML = ''
+
+        tags.map(item => {
+            const li = document.createElement('li')
+            li.innerHTML = item
+            ul.appendChild(li)
+        })
+        /* 返回陣列長度，要用在隨機挑選器上面 */
+        return tags.length
+    }
+
+    function selector(num) {
+        /* 隨機挑選器，但沒實際用處，只有動畫好看 */
+        const selected = setInterval(() => {
+            const randomNum = random(num)
+            ul.childNodes[randomNum].classList.add('selected')
+            setTimeout(() => ul.childNodes[randomNum].classList.remove('selected'), 150)
+        }, 150)
+
+        /* 停止隨機挑選器，實際選擇在這裡 */
+        setTimeout(() => {
+            clearInterval(selected)
+            setTimeout(() => ul.childNodes[random(num)].classList.add('selected'), 100)
+        }, 5050)
+    }
+
+    function random(num) {
+        const a = Math.floor(Math.random() * num)
+        console.log(a)
+        return a
+    }
+
+</script>
+</body>
+</html>

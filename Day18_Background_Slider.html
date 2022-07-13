@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day18_Background_Slider</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+            transition: 0.3s ease-in;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: block;
+            background-color: rgba(0, 0, 0, 0.6);
+            width: 100%;
+            height: 100%;
+        }
+
+
+        .container {
+            position: relative;
+            width: 60vw;
+            height: 50vh;
+            overflow: hidden;
+        }
+
+        .cover {
+            position: absolute;
+            left: -20vw;
+            top: -25vh;
+            width: 100vw;
+            height: 100vh;
+            transition: 0.3s ease-in;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-color: white;
+        }
+
+        .btn {
+            width: 50px;
+            height: 50px;
+            border: 2px solid yellow;
+            background-color: transparent;
+            color: white;
+            cursor: pointer;
+            font-size: 35px;
+            z-index: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+
+<button class="btn">&#8249;</button>
+<div class="container">
+    <div class="cover"></div>
+</div>
+<button class="btn">&#8250;</button>
+
+
+<script>
+    const cover = document.querySelector('.cover')
+    const body = document.querySelector('body')
+    const btn = document.querySelectorAll('button')
+
+    bgOrder = 0
+    const bg = ['https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80',
+        'https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80',
+        'https://images.unsplash.com/photo-1495467033336-2effd8753d51?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80',
+        'https://images.unsplash.com/photo-1522735338363-cc7313be0ae0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2689&q=80',
+        'https://images.unsplash.com/photo-1559087867-ce4c91325525?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80']
+
+    changeBg()
+
+
+    btn.forEach((item, index) => {
+        item.addEventListener('click', () => {
+            if (index === 0) {
+                console.log('<', bgOrder)
+                if (bgOrder === 0) bgOrder = 4
+                else bgOrder--
+                changeBg()
+            } else {
+                console.log('>', bgOrder)
+                if (bgOrder === 4) bgOrder = 0
+                else bgOrder++
+                changeBg()
+            }
+        })
+    })
+
+    function changeBg() {
+        cover.style.backgroundImage = `url("${bg[bgOrder]}")`
+        body.style.backgroundImage = `url("${bg[bgOrder]}")`
+    }
+
+</script>
+
+</body>
+</html>

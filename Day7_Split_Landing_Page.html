@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day7_Split_Landing_Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+        }
+
+        i {
+            font-style: normal;
+        }
+
+        .box {
+            width: 100%;
+            position: absolute;
+            left: 50%;
+            top: 30%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .box i {
+            color: white;
+            margin-bottom: 60px;
+            font-size: 60px;
+            font-weight: bold;
+        }
+
+        .box a {
+            border: 3px solid;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 20px 60px;
+        }
+
+
+        .container {
+            display: flex;
+            justify-content: center;
+            background-color: skyblue;
+            height: 100%;
+        }
+
+        .ps5 {
+            flex: 1;
+            position: relative;
+            background: url("https://raw.githubusercontent.com/bradtraversy/50projects50days/master/split-landing-page/ps.jpg") no-repeat left / cover;
+            transition: 1s ease-out;
+        }
+
+        .ps5::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(87, 84, 236, 0.55);
+        }
+
+        .ps5 a:hover {
+            background-color: #5754ec;
+            border: 3px solid #5754ec;
+        }
+
+
+        .xbox {
+            flex: 1;
+            position: relative;
+            background: url("https://raw.githubusercontent.com/bradtraversy/50projects50days/master/split-landing-page/xbox.jpg") no-repeat left / cover;
+            transition: 1s ease-out;
+        }
+
+        .xbox::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(43, 43, 43, 0.7);
+        }
+
+        .xbox a:hover {
+            background-color: #1c7a1c;
+            border: 3px solid #1c7a1c;
+        }
+
+        .active {
+            flex: 2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="ps5">
+        <div class="box">
+            <i>Playstation 5</i>
+            <a href="https://www.playstation.com/zh-hant-tw/ps5/">BUY NOW</a>
+        </div>
+    </div>
+    <div class="xbox">
+        <div class="box">
+            <i>Xbox Series X</i>
+            <a href="https://www.xbox.com/zh-TW/consoles/xbox-series-x">BUY NOW</a>
+        </div>
+
+    </div>
+</div>
+<script>
+    const ps5 = document.querySelector('.ps5')
+    const xbox = document.querySelector('.xbox')
+
+    ps5.addEventListener('mouseenter', () => {
+        ps5.classList.add('active')
+        ps5.addEventListener('mouseleave', () => {
+            ps5.classList.remove('active')
+        })
+    })
+    xbox.addEventListener('mouseenter', () => {
+        xbox.classList.add('active')
+        xbox.addEventListener('mouseleave', () => {
+            xbox.classList.remove('active')
+        })
+    })
+</script>
+</body>
+</html>

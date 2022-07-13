@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Day5_Blurry_Loading</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            font-family: Lato;
+            display: flex;
+            justify-content: center;
+        }
+
+        section {
+            background: url("https://images.unsplash.com/photo-1576161787924-01bb08dad4a4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2104&q=80") no-repeat center center/cover;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            transform: scale(1.2);
+            filter: blur();
+        }
+
+        .count {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+            line-height: 100px;
+            font-size: 50px;
+            font-weight: bold;
+            color: white;
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+<section></section>
+<div class="count"></div>
+
+<script>
+    const text = document.querySelector('.count')
+    const img = document.querySelector('section')
+
+    let num = 0
+
+    let countNum = setInterval(count, 40)
+
+    function count() {
+        num++
+
+        if (num > 100) clearInterval(countNum)
+
+        img.style.filter = `blur(${scale(num, 25)}px)`
+        text.style.opacity = scale(num, 1)
+        text.innerHTML = `${num}%`
+    }
+
+    function scale(change, range) {
+        return ((-change * range) / 100) + range
+    }
+    // 3秒從0-100%
+    // opacity 1-0 in 3sec
+    // blur 40-0 in 3sec
+    // z = (( -x * y ) / 100 ) + y 公式
+
+
+
+</script>
+</body>
+</html>

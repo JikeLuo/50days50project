@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day12_FAQ_Collapse</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            font-family: 'Roboto', sans-serif, 微軟正黑體;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            background-color: #eeeeee;
+        }
+
+        h1 {
+            margin: 10px;
+        }
+
+        h3 {
+            width: 90%;
+            margin: 25px 0 31px 0;
+        }
+
+        i {
+            font-style: normal;
+            margin-bottom: 30px;
+        }
+
+
+        .mainContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+
+        .boxContainer {
+            display: flex;
+            flex-direction: column;
+            width: 550px;
+            height: 100vh;
+            margin: 10px 0;
+        }
+
+        .box {
+            position: relative;
+            width: 95%;
+            height: 90px;
+            margin: 12px;
+            padding: 5px 30px;
+            border-radius: 5px;
+            background-color: transparent;
+            border: 1px solid #9fa4a8;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+            transition: 0.5s ease-out;
+        }
+
+        button {
+            position: absolute;
+            top: 35px;
+            right: 30px;
+            cursor: pointer;
+        }
+
+        .close {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            background-color: #9fa4a8;
+        }
+
+        .close::after,
+        .close::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 50%;
+            display: block;
+            height: 4px;
+            width: 15px;
+            border-radius: 2.5px;
+            background-color: white;
+        }
+
+        .close::after {
+            transform: translateX(50%) translateY(-50%) rotate(-45deg);
+        }
+
+        .close::before {
+            transform: translateX(50%) translateY(-50%) rotate(45deg);
+        }
+
+        .open {
+            width: 15px;
+            height: 15px;
+            border: none;
+            border-bottom: 4px solid #9fa4a8;
+            border-right: 4px solid #9fa4a8;
+            transform: translateX(-50%) translateY(50%) rotate(45deg);
+            border-radius: 1px;
+        }
+    </style>
+</head>
+<body>
+<div class="mainContainer">
+    <h1 class="title">FAQ 常見問題</h1>
+    <div class="boxContainer">
+        <div class="box">
+            <h3>學習前端，第一步該怎麼做?</h3>
+            <i class="ans">學會使用Google搜尋</i>
+            <button class="open"></button>
+        </div>
+        <div class="box">
+            <h3>我該如何學習Javascript?它很難嗎?</h3>
+            <i class="ans">Google,MDN讀一下就好</i>
+            <button class="open"></button>
+        </div>
+        <div class="box">
+            <h3>我不會英文也可以學程式嗎?</h3>
+            <i class="ans">Google翻譯使用一下</i>
+            <button class="open"></button>
+        </div>
+        <div class="box">
+            <h3>我學這樣可以找到月薪六萬的工作嗎?</h3>
+            <i class="ans">只會用HTML,CSS,JavascriptES5可不夠</i>
+            <button class="open"></button>
+        </div>
+        <div class="box">
+            <h3>我找到工作了，但老闆一直說我不會這不會那，我就真的不知道可以這樣，學校也沒教阿</h3>
+            <i class="ans">換個工作吧孩子，你不適合當工程師</i>
+            <button class="open"></button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const btn = document.querySelectorAll('button')
+
+    btn.forEach(item => {
+        item.addEventListener('click', () => {
+            const box = item.parentNode
+            const i = item.parentNode.children[1]
+            const btn = item.parentNode.children[2]
+            if (btn.className === 'close') {
+                btn.className = 'open'
+                box.style.backgroundColor = 'transparent'
+                box.style.height = '90px'
+            } else if (btn.className === 'open') {
+                btn.className = 'close'
+                box.style.backgroundColor = '#f2f2f2'
+                box.style.height = '150px'
+            }
+        })
+    })
+
+</script>
+</body>
+</html>

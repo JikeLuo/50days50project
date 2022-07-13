@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day1_Expending_Card</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            width: 90vw;
+        }
+
+        .panel {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            flex: 0.5;
+            height: 80vh;
+            border-radius: 40px;
+            cursor: pointer;
+            position: relative;
+            margin: 10px;
+            -webkit-transition: all 1s ease-in-out;
+        }
+
+        .panel.active {
+            flex: 5;
+        }
+
+        .panel h3 {
+            margin: 0;
+            color: #fff;
+            font-size: 25px;
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            opacity: 0;
+        }
+
+        .panel.active h3 {
+            opacity: 1;
+            transition: opacity 0.6s ease-in 0.4s;
+
+        }
+        
+        @media screen and (max-width: 480px) {
+            .container {
+                width: 100vw;
+            }
+
+            .panel:nth-of-type(4),
+            .panel:nth-of-type(5) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="panel active"
+         style="background-image: url('https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')">
+        <h3>Explore The World</h3>
+    </div>
+    <div class="panel"
+         style="background-image: url('https://images.unsplash.com/photo-1572276596237-5db2c3e16c5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')">
+        <h3>Wild Forest</h3>
+    </div>
+    <div class="panel"
+         style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1353&q=80')">
+        <h3>Sunny Beach</h3>
+    </div>
+    <div class="panel"
+         style="background-image: url('https://images.unsplash.com/photo-1551009175-8a68da93d5f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80')">
+        <h3>City on Winter</h3>
+    </div>
+    <div class="panel"
+         style="background-image: url('https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')">
+        <h3>Mountain - Clouds</h3>
+    </div>
+
+</div>
+
+
+<script>
+    const panel = document.querySelectorAll('.panel')
+
+    panel.forEach(item => {
+        item.addEventListener('click', ()=>{
+            removeActiveClass()
+            item.classList.add('active')
+        })
+    })
+
+    function removeActiveClass() {
+        panel.forEach(item =>{
+            item.classList.remove('active')
+                ''
+        })
+    }
+</script>
+</body>
+</html>

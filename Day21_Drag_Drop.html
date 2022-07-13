@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day21_Drag_Drop</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            background-color: #999;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            height: 100%;
+            width: 825px;
+        }
+
+        .empty {
+            width: 150px;
+            height: 150px;
+            border: 3px solid #333;
+            background-color: white;
+            margin: 10px;
+        }
+
+        .hover {
+            background-color: #333;
+            border: 3px dashed white;
+        }
+
+        .fill {
+            background: url('https://picsum.photos/200/300?grayscale') no-repeat center / cover;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .start {
+            border: 3px dashed white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="empty">
+        <div class="fill" draggable="true"></div>
+    </div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+</div>
+
+
+<script>
+    const fill = document.querySelector('.fill')
+    const empty = document.querySelectorAll('.empty')
+
+
+    fill.addEventListener('dragstart', dragStart)
+    fill.addEventListener('dragend', dragEnd)
+
+    empty.forEach(item => {
+        item.addEventListener('dragover', dragOver)
+        item.addEventListener('dragenter', dragEnter)
+        item.addEventListener('dragleave', dragLeave)
+        item.addEventListener('drop', dragDrop)
+    })
+
+    function dragStart() {
+        this.className += ' start'
+        /*  採非同步事件:
+            為了防止在抓取事件開始前就把物件隱藏
+            因為非同步事件是同步事件完成後才執行的 */
+        setTimeout(() => this.className = 'invisible', 0)
+    }
+
+    function dragEnd() {
+        this.className = 'fill'
+    }
+
+
+    function dragOver(e) {
+        e.preventDefault()
+    }
+
+    function dragEnter() {
+        this.classList.add('hover')
+    }
+
+    function dragLeave() {
+        this.classList.remove('hover')
+
+    }
+
+    function dragDrop() {
+        // console.log('drop', this) this == div.empty
+        this.appendChild(fill)
+        this.className = 'empty'
+    }
+
+
+
+
+
+</script>
+</body>
+</html>

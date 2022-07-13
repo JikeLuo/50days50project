@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day10_Dad_Jokes</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif, 微軟正黑體;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            background-color: #fed9bf;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 700px;
+            padding: 30px 60px;
+            background-color: white;
+            border-radius: 20px;
+        }
+
+        span {
+            display: block;
+            color: #fed9bf;
+            font-weight: bold;
+            font-size: 40px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .jokeBox {
+            margin-bottom: 40px;
+        }
+
+        .joke {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 40px;
+        }
+
+        .answerBox {
+            position: relative;
+            color: #808080;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+        .answerBox #answer {
+            font-size: 25px;
+        }
+
+        .answerBox .mask {
+            position: absolute;
+            width: 100%;
+            height: 120%;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #808080;
+            z-index: 1;
+            border-radius: 10px;
+        }
+
+
+        button {
+            width: 200px;
+            height: 70px;
+            background-color: #fed9bf;
+            color: white;
+            cursor: pointer;
+            border: 0;
+            border-radius: 10px;
+            font-size: 23px;
+            margin: 20px;
+        }
+
+        .btnContainer {
+            display: flex;
+            justify-items: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <span>早餐店笑話</span>
+
+    <div class="jokeBox">
+        <div class="joke"></div>
+        <div class="answerBox">
+            <div class="mask"></div>
+            <span id="answer"></span>
+        </div>
+    </div>
+
+
+    <div class="btnContainer">
+        <button id="showAnswer">顯示答案</button>
+        <button id="otherJokes">其他笑話</button>
+    </div>
+
+</div>
+
+<script>
+    const jokes = [{
+        joke: "媽媽弄丟了一個東西，為什麼媽媽還特別高興?",
+        answer: "她丟掉了壞習慣"
+    }, {
+        joke: "王老太太整天喋喋不休，可他有一個月說話最少，是哪一個月?",
+        answer: "二月"
+    }, {
+        joke: "為什麼把刀塗成藍色的槍就會很憂鬱",
+        answer: "刀槍不入(BLUE)"
+    }, {
+        joke: "什麼時候二加一會不等於三?",
+        answer: "算錯的時候"
+    }, {
+        joke: "有十隻羊，九隻蹲在羊圈，一隻蹲在豬圈?",
+        answer: "抑揚頓挫(一羊蹲錯)"
+    }, {
+        joke: "人最怕屁股上有什麼東西?",
+        answer: "一屁股債"
+    }, {
+        joke: "羊打電話給老鷹，老鷹接起電話說喂?",
+        answer: "陽奉陰違(羊PHONE鷹喂)"
+    }, {
+        joke: "古人為什麼要臥冰求鯉?",
+        answer: "彬彬有禮(冰冰有鯉)"
+    }, {
+        joke: "住在山谷中的志明，突然想吃泡麵，便拿出小鍋來燒水。水快開了才發現家裡的泡麵已經吃完了，急急忙忙到山腳下的雜貨店去買，三十分鐘後回到家，發現鍋裏的熱水全都不見了，這究竟是為什麼？",
+        answer: "鍋中的熱水已經變成冷水了"
+    }, {
+        joke: "百貨公司裡有個禿頭推銷員正在推銷生髮水，但為什麼他自己不用生髮水?",
+        answer: "他想讓大家知道禿頭有多麼難看"
+    }, {
+        joke: "蔣公如果還在世的話，世界會怎樣?",
+        answer: "多一個人"
+    }, {
+        joke: "上完廁所，要用左手還是右手擦屁股會比較好?",
+        answer: "用衛生紙擦比較好"
+    }, {
+        joke: "夫妻之間一定都會有的共通點是什麼？",
+        answer: "同年同月同日結婚"
+    }, {
+        joke: "小張被關在一間沒有上鎖的房間裡，可是即使他使出全力也拉不開門，這是怎麼回事?",
+        answer: "門是要用推開的"
+    }, {
+        joke: "報紙上登的消息不一定百分之百是真的，但什麼消息絕對假不了?",
+        answer: "報紙上的年月日"
+    }, {
+        joke: "芥末生日哪一天?",
+        answer: "世界末日(是芥末日)"
+    }, {
+        joke: "汽車會飛，猜一種飲料?",
+        answer: "咖啡 (Car飛)"
+    }, {
+        joke: "18.為什麼不讀師大附中?\n",
+        answer: "胎死腹中(附中)"
+    }, {
+        joke: "小貓、小狗和小雞誰會先被叫起來背書?",
+        answer: "小狗(旺旺仙貝)"
+    }, {
+        joke: "為什麼畫家喜歡畫粗的繩子不喜歡畫細的繩子?",
+        answer: "出神入化(粗繩入畫)"
+    }, {
+        joke: "綠豆哪裡人?",
+        answer: "嘉義人(綠豆加薏仁)"
+    }, {
+        joke: "哪首歌歌詞有李玟?",
+        answer: "月亮代表我的心 (因為李玟我愛你有多深..)"
+    }, {
+        joke: "什麼卡通人物最血腥?",
+        answer: "麵包超人 (因為他的頭可以吃)"
+    },]
+
+    const joke = document.querySelector('.joke')
+    const answer = document.querySelector('#answer')
+    const mask = document.querySelector('.mask')
+    const showAnswer = document.querySelector('#showAnswer')
+    const otherJoke = document.querySelector('#otherJokes')
+
+
+    otherJoke.addEventListener('click', () => {
+        mask.style.backgroundColor = '#808080'
+        let random = getRandomJoke(22, 0)
+        joke.innerHTML = random.joke
+        answer.innerHTML = random.answer
+    })
+
+    showAnswer.addEventListener('click', () => {
+        showTheAnswer()
+    })
+
+
+    function showTheAnswer() {
+        let condition = mask.style.backgroundColor
+        switch (condition) {
+            case "transparent":
+                mask.style.backgroundColor = '#808080'
+                break
+            case "#808080":
+                mask.style.backgroundColor = 'transparent'
+                break
+            default:
+                mask.style.backgroundColor = 'transparent'
+        }
+    }
+
+    function getRandomJoke(max, min) {
+        return jokes[Math.floor(Math.random() * (max - min + 1) + min)]
+    }
+
+
+</script>
+</body>
+</html>

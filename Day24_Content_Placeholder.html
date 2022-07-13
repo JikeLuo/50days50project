@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day24_Content_Placeholder</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Heebo:300&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Heebo', sans-serif;
+            margin: 0;
+
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ecf0f1;
+        }
+
+        .container {
+            width: 300px;
+            border-radius: 20px;
+            box-shadow: 3px 3px 25px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            background-color: white;
+        }
+
+        .img {
+            width: 100%;
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .innerText {
+            width: 100%;
+            padding: 30px 20px;
+        }
+
+        .title {
+            height: 12px;
+            width: 100%;
+            border-radius: 15px;
+            margin: 0 0 20px 0;
+        }
+
+
+        .article {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .profilePhoto {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-position: center;
+            background-size: cover;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .personal {
+            width: 50%;
+            margin: 0 20px;
+        }
+
+        .name {
+            font-size: 15px;
+            width: 100%;
+            border-radius: 4px;
+            height: 8px;
+            margin: 10px 0;
+        }
+
+        .date {
+            display: block;
+            color: #999;
+            width: 100%;
+            border-radius: 4px;
+            height: 8px;
+            margin: 10px 0;
+        }
+
+        .onload {
+            background-image: linear-gradient(to right,
+            #f6f7f8 0%,
+            #edeef1 10%,
+            #f6f7f8 20%,
+            #f6f7f8 100%
+            );
+            background-size: 200% 100%;
+            animation: animation 1.5s infinite;
+        }
+
+        @keyframes animation {
+            from {
+                background-position: 50% 0;
+            }
+            to {
+                background-position: -150% 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="img onload"></div>
+    <div class="info">
+        <div class="innerText">
+            <h3 class="title onload"></h3>
+            <p class="article onload" id="article"></p>
+            <p class="article onload"></p>
+            <p class="article onload"></p>
+        </div>
+
+        <div class="profile">
+            <div class="profilePhoto onload"></div>
+            <div class="personal">
+                <div class="name onload"></div>
+                <small class="date onload"></small>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    const data = {
+        themePhoto: 'https://picsum.photos/300/150?grayscale',
+        title: 'Lorem ipsum dolor sit amet',
+        article: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore perferendis',
+        profilePhoto: 'https://randomuser.me/api/portraits/men/36.jpg',
+        name: 'Gan Han Cyuan'
+    }
+
+    const photo = document.querySelector('.profilePhoto')
+    const date = document.querySelector('.date')
+    const img = document.querySelector('.img')
+    const titles = document.querySelector('.title')
+    const article = document.querySelectorAll('.article')
+    const name = document.querySelector('.name')
+
+    const time = new Date()
+
+
+    setTimeout(() => {
+        img.style.backgroundImage = `url('${data.themePhoto}')`
+        img.classList.remove('onload')
+        photo.style.backgroundImage = `url('${data.profilePhoto}')`
+        photo.classList.remove('onload')
+        date.innerHTML = time.toLocaleDateString()
+        date.classList.remove('onload')
+        titles.classList.remove('onload')
+        titles.innerHTML = data.title
+        name.classList.remove('onload')
+        name.innerHTML = data.name
+        article.forEach((item, index) => {
+            if (index == 1) item.innerHTML = data.article
+            item.classList.remove('onload')
+        })
+    }, 4000)
+
+
+</script>
+
+</body>
+</html>

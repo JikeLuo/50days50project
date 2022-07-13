@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day19_Theme_Clock</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Heebo:300&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Heebo', sans-serif;
+            transition-timing-function: ease-in;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            transition-duration: 0.3s
+        }
+
+        button {
+            width: 80px;
+            height: 35px;
+            cursor: pointer;
+            border: none;
+            margin-bottom: 60px;
+            border-bottom: 1px solid;
+            transition-duration: 0.3s;
+        }
+
+        .blackMode {
+            background-color: #111111;
+            color: white;
+            border-color: white;
+        }
+
+        .whiteMode {
+            background-color: white;
+            color: #111;
+            border-color: #111;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+
+        .clock {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 40px;
+        }
+
+        .clock div {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform-origin: bottom;
+        }
+
+        .dot {
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #e74c3c;
+            z-index: 1;
+        }
+
+        .dot::before {
+            content: '';
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+            display: block;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: white;
+        }
+
+
+        .hourHand {
+            height: 100px;
+            width: 3px;
+            transform: translate(-50%, -100%);
+            transition-duration: 0.3s
+        }
+
+        .minuteHand {
+            height: 150px;
+            width: 3px;
+            transform: translate(-50%, -100%);
+            transition-duration: 0.3s
+        }
+
+        .secondHand {
+            width: 2px;
+            height: 150px;
+            background-color: #e74c3c;
+            transform: translate(-50%, -100%);
+            transition-duration: 0.3s
+        }
+
+        .timeContainer {
+            font-size: 40px;
+            transition-duration: 0.3s
+        }
+
+        .dateContainer {
+            font-size: 20px;
+            margin: 10px;
+            transition-duration: 0.3s
+        }
+
+
+    </style>
+</head>
+<body class="blackMode">
+
+<div class="container">
+    <button class="blackMode">純淨模式</button>
+    <div class="clock">
+        <div class="dot"></div>
+        <div class="hourHand whiteMode"></div>
+        <div class="minuteHand whiteMode"></div>
+        <div class="secondHand whiteMode"></div>
+    </div>
+    <div class="timeContainer blackMode"></div>
+    <div class="dateContainer blackMode"></div>
+</div>
+
+<script>
+    const body = document.querySelector('body')
+    const hourHands = document.querySelector('.hourHand')
+    const minuteHands = document.querySelector('.minuteHand')
+    const secondHands = document.querySelector('.secondHand')
+    const time = document.querySelector('.timeContainer')
+    const date = document.querySelector('.dateContainer')
+    const btn = document.querySelector('button')
+
+    flag = true
+    btn.addEventListener('click', () => {
+        body.classList.toggle('blackMode')
+        body.classList.toggle('whiteMode')
+        hourHands.classList.toggle('blackMode')
+        hourHands.classList.toggle('whiteMode')
+        minuteHands.classList.toggle('whiteMode')
+        minuteHands.classList.toggle('blackMode')
+        btn.classList.toggle('whiteMode')
+        btn.classList.toggle('blackMode')
+        time.classList.toggle('whiteMode')
+        time.classList.toggle('blackMode')
+        date.classList.toggle('whiteMode')
+        date.classList.toggle('blackMode')
+
+        if (flag) btn.innerHTML = '黑暗模式'
+        else if (!flag) btn.innerHTML = '純淨模式'
+        flag = !flag
+    })
+    const nowDate = new Date()
+    time.innerHTML = nowDate.toLocaleTimeString('en-US', {hour12: true, hour: '2-digit', minute: '2-digit'})
+    date.innerHTML = nowDate.toLocaleDateString('zh-TW', {weekday: 'long', month: 'short', day: 'numeric'})
+
+    setInterval(() => {
+        getClock(hourHands)
+        getClock(minuteHands)
+        getClock(secondHands)
+    }, 1000)
+
+    function getClock(type) {
+        const date = new Date()
+        if (date.getSeconds() === 0) stopTransition(type, true)
+        else stopTransition(type, false)
+        switch (type) {
+            case secondHands:
+                type.style.transform = `translate(-50%, -100%) rotate(${date.getSeconds() * 6}deg)`
+                break
+            case minuteHands:
+                type.style.transform = `translate(-50%, -100%) rotate(${(date.getMinutes() * 6) + (date.getSeconds() / 12)}deg)`
+                break
+            case hourHands:
+                type.style.transform = `translate(-50%, -100%) rotate(${(date.getHours() * 30) + (date.getMinutes() / 12)}deg)`
+        }
+    }
+
+    function stopTransition(type, bool) {
+        if (bool) type.style.transitionDuration = '0s'
+        else type.style.transitionDuration = '0.3s'
+    }
+
+
+    // function getCSS(item, value) {
+    //     return document.defaultView.getComputedStyle(item)[`${value}`]
+    // }
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day20_Button_Ripple_Effect</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 微軟正黑體 Light;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            background-color: #111;
+        }
+
+        button {
+            position: relative;
+            border: none;
+            border-radius: 10px;
+            width: 100px;
+            height: 50px;
+            cursor: pointer;
+            overflow: hidden;
+            color: white;
+            margin: 10px;
+        }
+
+        .b1 {
+            background-color: #EF8A17;
+
+        }
+
+        .b2 {
+            background-color: #e74c3c;
+        }
+
+        .effect {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            animation: scaleEffect 0.5s ease-in;
+            background: radial-gradient(circle at center, transparent, white);
+            transition: 0.5s ease-out;
+
+        }
+
+        @keyframes scaleEffect {
+            from {
+                transform: scale(3);
+            }
+            to {
+                transform: scale(300);
+
+            }
+        }
+    </style>
+</head>
+<body>
+
+<button class="b1">點點看</button>
+<button class="b2">點點看</button>
+
+
+<script>
+    const btn = document.querySelectorAll('button')
+
+    btn.forEach(item => {
+        item.addEventListener('click', (e) => {
+
+            let insideX = e.clientX - e.target.offsetLeft
+            let insideY = e.clientY - e.target.offsetTop
+
+            console.log(insideY)
+
+            const effect = document.createElement('div')
+            effect.classList.add('effect')
+            effect.style.left = `${insideX}px`
+            effect.style.top = `${insideY}px`
+
+            item.appendChild(effect)
+
+            setTimeout(() => {
+                item.removeChild(item.children[0])
+            }, 500)
+
+
+        })
+    })
+
+</script>
+
+</body>
+</html>

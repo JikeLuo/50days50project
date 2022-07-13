@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day15_Incrementing_Counter</title>
+    <script src="https://kit.fontawesome.com/2093c6fb51.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif, 微軟正黑體;
+            font-size: 20px;
+            color: white;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+        }
+
+        body > div {
+            width: 300px;
+            margin: 50px;
+            text-align: center;
+        }
+
+        body > div > div {
+            margin: 20px;
+            font-size: 35px;
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+<div>
+    <i class="fab fa-twitter fa-3x"></i>
+    <div class="counter" data-target="490000"></div>
+    <span>Twitter 追隨者</span>
+
+</div>
+<div>
+    <i class="fab fa-youtube fa-3x"></i>
+    <div class="counter" data-target="3000000"></div>
+    <span>Youtube 訂閱者</span>
+
+</div>
+<div>
+    <i class="fab fa-facebook fa-3x"></i>
+    <div class="counter" data-target="7500"></div>
+    <span>Facebook 追隨者</span>
+</div>
+
+<script>
+    const counter = document.querySelectorAll('.counter')
+    console.log(typeof +counter[0].getAttribute('data-target'))
+
+    counter.forEach(item => {
+        item.innerText = '0'
+
+        function counter() {
+            const popularity = +item.getAttribute('data-target')
+            const nowNum = +item.innerText
+
+            const count = +popularity / 900
+
+            if (nowNum < popularity) {
+                item.innerText = `${Math.ceil(nowNum + count)}`
+                setTimeout(counter, 1)
+            } else {
+                item.innerHTML = popularity
+            }
+        }
+
+        counter()
+    })
+
+
+</script>
+
+</body>
+</html>

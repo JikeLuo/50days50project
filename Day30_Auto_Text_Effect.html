@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day30_Auto_Text_Effect</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Heebo:300&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: 微軟正黑體, 'Heebo', sans-serif;
+            user-select: none;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #edf6f9;
+        }
+
+        .console {
+            display: flex;
+            justify-content: space-around;
+            width: 150px;
+            height: 50px;
+            background-color: rgba(0,0,0,0.1);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .speed {
+            width: 50px;
+            outline: none;
+            border: none;
+            border-radius: 3px;
+            padding-left: 15px;
+        }
+
+        label {
+            line-height: 30px;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<h3></h3>
+<div class="console">
+    <label for="speed">速度 :</label>
+    <input type="number" id="speed" class="speed" min="1" max="20" value="1">
+</div>
+
+
+<script>
+    const container = document.querySelector('h3')
+    const speedEl = document.querySelector('.speed')
+    let speedValue = speedEl.value
+    let speed = 500 / speedValue
+    let text = `We Love Programming!!`
+    let long = 1
+
+    typing()
+
+    function typing() {
+        container.innerHTML = text.slice(0, long)
+        long++
+        if (long > text.length) long = 1
+        setTimeout(typing, speed)
+    }
+
+
+
+
+    speedEl.addEventListener('input', (e)=>{
+        speed = 500 / e.target.value
+    })
+
+    /* 數字用滾輪移動增減 */
+    speedEl.addEventListener('mousewheel', (e)=> {
+        if (e.deltaY < 0 && speedValue < 20) {
+            speedValue++
+            speedEl.value = speedValue
+        }
+        if (e.deltaY > 0 && 1 < speedValue) {
+            speedValue--
+            speedEl.value = speedValue
+        }
+        speed = 500 / e.target.value
+    })
+</script>
+</body>
+</html>
